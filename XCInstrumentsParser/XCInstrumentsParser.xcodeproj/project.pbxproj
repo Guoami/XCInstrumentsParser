@@ -1,0 +1,353 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		05FB074E23F540B900F189BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FB074D23F540B900F189BA /* main.m */; };
+		05FB075723F5412A00F189BA /* AllocationsTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FB075623F5412A00F189BA /* AllocationsTemplateParser.m */; };
+		05FB075D23F5433B00F189BA /* DVTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FB075C23F5433B00F189BA /* DVTFoundation.framework */; };
+		05FB076123F5434500F189BA /* DVTInstrumentsFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FB076023F5434500F189BA /* DVTInstrumentsFoundation.framework */; };
+		05FB076423F5434900F189BA /* DVTInstrumentsUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FB076323F5434900F189BA /* DVTInstrumentsUtilities.framework */; };
+		05FB076A23F5435700F189BA /* InstrumentsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FB076923F5435700F189BA /* InstrumentsKit.framework */; };
+		05FB076D23F5435A00F189BA /* InstrumentsPlugIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FB076C23F5435A00F189BA /* InstrumentsPlugIn.framework */; };
+		05FB076F23F543BC00F189BA /* InstrumentsAnalysisCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FB076623F5435300F189BA /* InstrumentsAnalysisCore.framework */; };
+		05FB077023F543BC00F189BA /* InstrumentsAnalysisCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05FB076623F5435300F189BA /* InstrumentsAnalysisCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		05FB074823F540B900F189BA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		05FB077123F543BC00F189BA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				05FB077023F543BC00F189BA /* InstrumentsAnalysisCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		05FB074A23F540B900F189BA /* XCInstrumentsParser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = XCInstrumentsParser; sourceTree = BUILT_PRODUCTS_DIR; };
+		05FB074D23F540B900F189BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		05FB075423F540D100F189BA /* Instruments.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Instruments.h; sourceTree = "<group>"; };
+		05FB075523F5412A00F189BA /* AllocationsTemplateParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllocationsTemplateParser.h; sourceTree = "<group>"; };
+		05FB075623F5412A00F189BA /* AllocationsTemplateParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllocationsTemplateParser.m; sourceTree = "<group>"; };
+		05FB075C23F5433B00F189BA /* DVTFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DVTFoundation.framework; path = ../../../../../Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework; sourceTree = "<group>"; };
+		05FB076023F5434500F189BA /* DVTInstrumentsFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DVTInstrumentsFoundation.framework; path = ../../../../../Applications/Xcode.app/Contents/SharedFrameworks/DVTInstrumentsFoundation.framework; sourceTree = "<group>"; };
+		05FB076323F5434900F189BA /* DVTInstrumentsUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DVTInstrumentsUtilities.framework; path = ../../../../../Applications/Xcode.app/Contents/SharedFrameworks/DVTInstrumentsUtilities.framework; sourceTree = "<group>"; };
+		05FB076623F5435300F189BA /* InstrumentsAnalysisCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InstrumentsAnalysisCore.framework; path = ../../../../../Applications/Xcode.app/Contents/Applications/Instruments.app/Contents/Frameworks/InstrumentsAnalysisCore.framework; sourceTree = "<group>"; };
+		05FB076923F5435700F189BA /* InstrumentsKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InstrumentsKit.framework; path = ../../../../../Applications/Xcode.app/Contents/Applications/Instruments.app/Contents/Frameworks/InstrumentsKit.framework; sourceTree = "<group>"; };
+		05FB076C23F5435A00F189BA /* InstrumentsPlugIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InstrumentsPlugIn.framework; path = ../../../../../Applications/Xcode.app/Contents/Applications/Instruments.app/Contents/Frameworks/InstrumentsPlugIn.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		05FB074723F540B900F189BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05FB076F23F543BC00F189BA /* InstrumentsAnalysisCore.framework in Frameworks */,
+				05FB076123F5434500F189BA /* DVTInstrumentsFoundation.framework in Frameworks */,
+				05FB076423F5434900F189BA /* DVTInstrumentsUtilities.framework in Frameworks */,
+				05FB075D23F5433B00F189BA /* DVTFoundation.framework in Frameworks */,
+				05FB076D23F5435A00F189BA /* InstrumentsPlugIn.framework in Frameworks */,
+				05FB076A23F5435700F189BA /* InstrumentsKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		05FB074123F540B900F189BA = {
+			isa = PBXGroup;
+			children = (
+				05FB074C23F540B900F189BA /* XCInstrumentsParser */,
+				05FB074B23F540B900F189BA /* Products */,
+				05FB075B23F5433B00F189BA /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		05FB074B23F540B900F189BA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				05FB074A23F540B900F189BA /* XCInstrumentsParser */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		05FB074C23F540B900F189BA /* XCInstrumentsParser */ = {
+			isa = PBXGroup;
+			children = (
+				05FB074D23F540B900F189BA /* main.m */,
+				05FB075423F540D100F189BA /* Instruments.h */,
+				05FB075523F5412A00F189BA /* AllocationsTemplateParser.h */,
+				05FB075623F5412A00F189BA /* AllocationsTemplateParser.m */,
+			);
+			path = XCInstrumentsParser;
+			sourceTree = "<group>";
+		};
+		05FB075B23F5433B00F189BA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				05FB076C23F5435A00F189BA /* InstrumentsPlugIn.framework */,
+				05FB076923F5435700F189BA /* InstrumentsKit.framework */,
+				05FB076623F5435300F189BA /* InstrumentsAnalysisCore.framework */,
+				05FB076323F5434900F189BA /* DVTInstrumentsUtilities.framework */,
+				05FB076023F5434500F189BA /* DVTInstrumentsFoundation.framework */,
+				05FB075C23F5433B00F189BA /* DVTFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		05FB074923F540B900F189BA /* XCInstrumentsParser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 05FB075123F540B900F189BA /* Build configuration list for PBXNativeTarget "XCInstrumentsParser" */;
+			buildPhases = (
+				05FB074623F540B900F189BA /* Sources */,
+				05FB074723F540B900F189BA /* Frameworks */,
+				05FB074823F540B900F189BA /* CopyFiles */,
+				05FB077123F543BC00F189BA /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XCInstrumentsParser;
+			productName = XCInstrumentsParser;
+			productReference = 05FB074A23F540B900F189BA /* XCInstrumentsParser */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		05FB074223F540B900F189BA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = "Ruslan Nikolayev";
+				TargetAttributes = {
+					05FB074923F540B900F189BA = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 05FB074523F540B900F189BA /* Build configuration list for PBXProject "XCInstrumentsParser" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 05FB074123F540B900F189BA;
+			productRefGroup = 05FB074B23F540B900F189BA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				05FB074923F540B900F189BA /* XCInstrumentsParser */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		05FB074623F540B900F189BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05FB075723F5412A00F189BA /* AllocationsTemplateParser.m in Sources */,
+				05FB074E23F540B900F189BA /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		05FB074F23F540B900F189BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		05FB075023F540B900F189BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		05FB075223F540B900F189BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Applications/Instruments.app/Contents/Frameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/SharedFrameworks",
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/SharedFrameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/OtherFrameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/PrivateFrameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Applications/Instruments.app/Contents/Frameworks",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		05FB075323F540B900F189BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Applications/Instruments.app/Contents/Frameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/SharedFrameworks",
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/SharedFrameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/OtherFrameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/PrivateFrameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Applications/Instruments.app/Contents/Frameworks",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		05FB074523F540B900F189BA /* Build configuration list for PBXProject "XCInstrumentsParser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05FB074F23F540B900F189BA /* Debug */,
+				05FB075023F540B900F189BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		05FB075123F540B900F189BA /* Build configuration list for PBXNativeTarget "XCInstrumentsParser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05FB075223F540B900F189BA /* Debug */,
+				05FB075323F540B900F189BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 05FB074223F540B900F189BA /* Project object */;
+}
