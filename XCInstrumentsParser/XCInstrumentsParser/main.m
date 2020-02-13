@@ -64,15 +64,16 @@ int main(int argc, const char * argv[]) {
             // Different instruments can have different data structure.
             // Here are some straightforward example code demonstrating how to process the data from several commonly used instruments.
             NSString *instrumentID = instrument.type.uuid;
-            NSString *timeProfilerID = @"com.apple.xray.instrument-type.coresampler2";
             NSString *allocationsId = @"com.apple.xray.instrument-type.oa";
-            NSString *coreAnimationsId = @"com.apple.dt.coreanimation-fps";
-            NSString *networkId = @"com.apple.dt.network-connections";
-            NSString *activityMonitorId = @"com.apple.xray.instrument-type.activity";
-            NSString *leaksId = @"com.apple.xray.instrument-type.homeleaks";
+            
+            // Time Profiler: com.apple.xray.instrument-type.coresampler2
+            // Core Animations: com.apple.dt.coreanimation-fps
+            // Network: com.apple.dt.network-connections
+            // Activity Monitor: com.apple.xray.instrument-type.activity
+            // Leaks: com.apple.xray.instrument-type.homeleaks
             
             for (XRRun *run in runs) {
-                NSLog(@"Run #%@: %@\n", @(run.runNumber), run.displayName);
+                NSLog(@"Run #%@", @(run.runNumber));
                 instrument.currentRun = run;
                 // Common routine to obtain contexts for the instrument.
                 NSMutableArray<XRContext *> *contexts = [NSMutableArray array];
@@ -91,7 +92,11 @@ int main(int argc, const char * argv[]) {
                 }
                 if ([instrumentID isEqualToString:allocationsId]) {
                     NSArray<NSString *> *results = [AllocationsTemplateParser parseAllocationsWithInstrument:instrument];
-                    NSLog(@"%@", results);
+                    printf("RAM allocations results:\n");
+                    for (NSString *row in results) {
+                        printf("%s",[row cStringUsingEncoding:NSUTF8StringEncoding]);
+                        printf("\n");
+                    }
                 }
                     
                 if (![instrument isKindOfClass:XRLegacyInstrument.class]) {
