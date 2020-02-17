@@ -9,9 +9,39 @@
 #import <AppKit/AppKit.h>
 
 #import <objc/runtime.h>
+
+// These are required for fetching private variables using objc runtime
 #define CastVariable(object, name, type) (*(type *)(void *)&((char *)(__bridge void *)object)[ivar_getOffset(class_getInstanceVariable(object_getClass(object), #name))])
 #define GetVariable(object, name) CastVariable(object, name, id const)
 
+// Logging util that helps with finding private variables/methods
+static void introscope(char *label, Class classInstance) {
+    printf("**\n%s-----------\n", label);
+    
+    unsigned int count = 0;
+    Ivar *ivars = class_copyIvarList(classInstance, &count);
+    printf("\nIvars:\n");
+    for (int i=0;i<count;i++) {
+        Ivar ivar = ivars[i];
+        const char *name = ivar_getName(ivar);
+        const char *type = ivar_getTypeEncoding(ivar);
+        printf("\n%s: %s\n", type, name);
+    }
+    
+    count = 0;
+    Method *methods = class_copyMethodList(classInstance, &count);
+    printf("\nMethods:\n");
+    for (int i=0;i<count;i++) {
+        Method method = methods[i];
+        struct objc_method_description *info = method_getDescription(method);
+        
+        const char *name = sel_getName(info->name);
+        const char *types = info->types;
+        printf("\n%s %s\n", name, types);
+    }
+    
+    printf("**\n-----------\n");
+}
 
 NSString *PFTDeveloperDirectory(void);
 void DVTInitializeSharedFrameworks(void);
@@ -288,11 +318,22 @@ BOOL XRAnalysisCoreReadCursorGetValue(XRAnalysisCoreReadCursor *cursor, UInt8 co
 }
 @end
 
+@interface XROAArrayController : NSArrayController
+{
+    XRInstrument *_instrument;
+}
+@end
+
+
 @interface XRObjectAllocInstrument : XRLegacyInstrument {
     XRObjectAllocEventViewController *_objectListController;
+    XROAArrayController *_summaryController;
 }
 - (NSArray<XRContext *> *)_topLevelContexts;
-//- (NSArray<XRContext *> *)_summaryView;
+- (NSArray<XRContext *> *)_summaryView;
+
+- (void)setInspectionTime:(unsigned long long)arg1;
+- (void)setSelectedTimeRange:(XRTimeRange)arg1;
 @end
 
 // MARK: - Memory leaks
@@ -317,4 +358,20 @@ BOOL XRAnalysisCoreReadCursorGetValue(XRAnalysisCoreReadCursor *cursor, UInt8 co
 - (NSString *) displayAddress;
 - (DVT_VMUClassInfo *) classInfo;
 - (DVT_VMUClassInfo *) _layout;
+@end
+
+@interface XROAEventSummary : NSObject <NSCoding, NSCopying>
+{
+    long long totalBytes;
+    long long activeBytes;
+    int totalAllocationCount;
+    int activeAllocationCount;
+    int totalEvents;
+    int livingCount;
+    int transitoryCount;
+    int categoryIdentifier;
+    long long livingBytes;
+    long long transitoryBytes;
+    NSString *categoryName;
+}
 @end

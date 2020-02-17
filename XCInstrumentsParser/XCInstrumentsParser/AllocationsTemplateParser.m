@@ -15,35 +15,38 @@
     XRObjectAllocInstrument *allocInstrument = (XRObjectAllocInstrument *)instrument;
     
     // 4 contexts: Statistics, Call Trees, Allocations List, Generations.
-    [allocInstrument._topLevelContexts[2] display];
-    XRManagedEventArrayController *arrayController = GetVariable(GetVariable(allocInstrument, _objectListController), _ac);
+    // Show staticstics:
+    XRContext *context = allocInstrument._topLevelContexts[0];
+    [context display];
     
+    // Summary controller is the bottom left section which contains all the data abour selected timeframe
+    XROAArrayController *arrayController = GetVariable(allocInstrument, _summaryController);
+    // Formats bytes for us, neat
     NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
     byteFormatter.countStyle = NSByteCountFormatterCountStyleBinary;
-    NSMutableDictionary<NSNumber *, NSNumber *> *memoryStamps = [NSMutableDictionary dictionary];
-    NSInteger totalSize = 0;
-    for (XRObjectAllocEvent *event in arrayController.arrangedObjects) {
-        NSNumber *time = @(event.timestamp / NSEC_PER_SEC);
-        totalSize += event.size;
-         
-        memoryStamps[time] = [NSNumber numberWithInteger: totalSize];
-    }
     
-    NSArray<NSNumber *> *sortedTime = [memoryStamps.allKeys sortedArrayUsingComparator:^(NSNumber *time1, NSNumber *time2) {
-        return [time1 compare:time2];
-    }];
-    
+    XRRun *lastRun = [instrument.allRuns lastObject];
+    XRTime durationSeconds = lastRun.timeRange.length / NSEC_PER_SEC;
     NSMutableArray<NSString *> *resultArray = @[].mutableCopy;
-    for (NSNumber *time in sortedTime) {
-        NSString *size = [byteFormatter stringForObjectValue:memoryStamps[time]];
-        [resultArray addObject:[NSString stringWithFormat:@"%lds %@", time.integerValue, size]];
+    // We start from 1st second because there is no information about mem consumption on the start
+    for (XRTime i = 1; i < durationSeconds; i++) {
+        // Create a time range so that Instrument knows which statistics should be shown
+        XRTimeRange range = { .start = 0, .length = i * NSEC_PER_SEC };
+        // Apply time range
+        [allocInstrument setSelectedTimeRange:range];
+        
+        // Get the first row of summary data (All Heap & Anonymous VM)
+        XROAEventSummary *summary = [arrayController.arrangedObjects firstObject];
+        // Summary can be zero in case there is not enough stats
+        if (summary != nil) {
+            long long bytes = GetVariable(summary, activeBytes);
+            
+            NSString *formattedBytes = [byteFormatter stringForObjectValue:[NSNumber numberWithLongLong:bytes]];
+            NSString *result = [NSString stringWithFormat:@"%llus %@", i, formattedBytes];
+            [resultArray addObject:result];
+        }
     }
     return [resultArray copy];
-}
-
-
-void handleAllocationsTemplate(XRInstrument *instrument) {
-    
 }
 
 @end

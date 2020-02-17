@@ -9,6 +9,7 @@
 @import Foundation;
 #import "Instruments.h"
 #import "AllocationsTemplateParser.h"
+#import "ActivityMonitorTemplateParser.h"
 
 #import <objc/runtime.h>
 
@@ -54,9 +55,9 @@ int main(int argc, const char * argv[]) {
         XRTrace *trace = document.trace;
         for (XRInstrument *instrument in trace.allInstrumentsList.allInstruments) {
             NSLog(@"\nInstrument: %@ (%@)\n", instrument.type.name, instrument.type.uuid);
-            // Each instrument can have multiple runs.
-            NSArray<XRRun *> *runs = instrument.allRuns;
-            if (runs.count == 0) {
+            // We only need the last run
+            XRRun *run = [instrument.allRuns lastObject];
+            if (run == nil) {
                 NSLog(@"No data.\n");
                 continue;
             }
@@ -65,44 +66,50 @@ int main(int argc, const char * argv[]) {
             // Here are some straightforward example code demonstrating how to process the data from several commonly used instruments.
             NSString *instrumentID = instrument.type.uuid;
             NSString *allocationsId = @"com.apple.xray.instrument-type.oa";
+            NSString *activityMonitorId = @"com.apple.xray.instrument-type.activity";
             
             // Time Profiler: com.apple.xray.instrument-type.coresampler2
             // Core Animations: com.apple.dt.coreanimation-fps
             // Network: com.apple.dt.network-connections
-            // Activity Monitor: com.apple.xray.instrument-type.activity
             // Leaks: com.apple.xray.instrument-type.homeleaks
             
-            for (XRRun *run in runs) {
-                NSLog(@"Run #%@", @(run.runNumber));
-                instrument.currentRun = run;
-                // Common routine to obtain contexts for the instrument.
-                NSMutableArray<XRContext *> *contexts = [NSMutableArray array];
-                if (![instrument isKindOfClass:XRLegacyInstrument.class]) {
-                    XRAnalysisCoreStandardController *standardController = [[XRAnalysisCoreStandardController alloc]initWithInstrument:instrument document:document];
-                    instrument.viewController = standardController;
-                    [standardController instrumentDidChangeSwitches];
-                    [standardController instrumentChangedTableRequirements];
-                    XRAnalysisCoreDetailViewController *detailController = GetVariable(standardController, _detailController);
-                    [detailController restoreViewState];
-                    XRAnalysisCoreDetailNode *detailNode = GetVariable(detailController, _firstNode);
-                    while (detailNode) {
-                        [contexts addObject:XRContextFromDetailNode(detailController, detailNode)];
-                        detailNode = detailNode.nextSibling;
-                    }
+            instrument.currentRun = run;
+            // Common routine to obtain contexts for the instrument.
+            NSMutableArray<XRContext *> *contexts = [NSMutableArray array];
+            if (![instrument isKindOfClass:XRLegacyInstrument.class]) {
+                XRAnalysisCoreStandardController *standardController = [[XRAnalysisCoreStandardController alloc]initWithInstrument:instrument document:document];
+                instrument.viewController = standardController;
+                [standardController instrumentDidChangeSwitches];
+                [standardController instrumentChangedTableRequirements];
+                XRAnalysisCoreDetailViewController *detailController = GetVariable(standardController, _detailController);
+                [detailController restoreViewState];
+                XRAnalysisCoreDetailNode *detailNode = GetVariable(detailController, _firstNode);
+                while (detailNode) {
+                    [contexts addObject:XRContextFromDetailNode(detailController, detailNode)];
+                    detailNode = detailNode.nextSibling;
                 }
-                if ([instrumentID isEqualToString:allocationsId]) {
-                    NSArray<NSString *> *results = [AllocationsTemplateParser parseAllocationsWithInstrument:instrument];
-                    printf("RAM allocations results:\n");
-                    for (NSString *row in results) {
-                        printf("%s",[row cStringUsingEncoding:NSUTF8StringEncoding]);
-                        printf("\n");
-                    }
+            }
+            if ([instrumentID isEqualToString:allocationsId]) {
+                NSArray<NSString *> *results = [AllocationsTemplateParser parseAllocationsWithInstrument:instrument];
+                printf("\nRAM allocations results:\n");
+                for (NSString *row in results) {
+                    printf("%s",[row cStringUsingEncoding:NSUTF8StringEncoding]);
+                    printf("\n");
                 }
-                    
-                if (![instrument isKindOfClass:XRLegacyInstrument.class]) {
-                    [instrument.viewController instrumentWillBecomeInvalid];
-                    instrument.viewController = nil;
+                printf("RAM allocations end.\n");
+            } else if ([instrumentID isEqualToString:activityMonitorId]) {
+                NSArray<NSString *> *results = [ActivityMonitorTemplateParser parseCPUWithInstrument:instrument];
+                printf("\nCPU results:\n");
+                for (NSString *row in results) {
+                    printf("%s",[row cStringUsingEncoding:NSUTF8StringEncoding]);
+                    printf("\n");
                 }
+                printf("CPU end.\n");
+            }
+                
+            if (![instrument isKindOfClass:XRLegacyInstrument.class]) {
+                [instrument.viewController instrumentWillBecomeInvalid];
+                instrument.viewController = nil;
             }
         }
         // Close the document safely.

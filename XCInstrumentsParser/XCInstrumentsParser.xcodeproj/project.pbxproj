@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0561A82B23FA727300F874E0 /* ActivityMonitorTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0561A82A23FA727300F874E0 /* ActivityMonitorTemplateParser.m */; };
 		05FB074E23F540B900F189BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FB074D23F540B900F189BA /* main.m */; };
 		05FB075723F5412A00F189BA /* AllocationsTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FB075623F5412A00F189BA /* AllocationsTemplateParser.m */; };
 		05FB075D23F5433B00F189BA /* DVTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FB075C23F5433B00F189BA /* DVTFoundation.framework */; };
@@ -42,6 +43,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0561A82923FA727300F874E0 /* ActivityMonitorTemplateParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityMonitorTemplateParser.h; sourceTree = "<group>"; };
+		0561A82A23FA727300F874E0 /* ActivityMonitorTemplateParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityMonitorTemplateParser.m; sourceTree = "<group>"; };
 		05FB074A23F540B900F189BA /* XCInstrumentsParser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = XCInstrumentsParser; sourceTree = BUILT_PRODUCTS_DIR; };
 		05FB074D23F540B900F189BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		05FB075423F540D100F189BA /* Instruments.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Instruments.h; sourceTree = "<group>"; };
@@ -96,6 +99,8 @@
 				05FB075423F540D100F189BA /* Instruments.h */,
 				05FB075523F5412A00F189BA /* AllocationsTemplateParser.h */,
 				05FB075623F5412A00F189BA /* AllocationsTemplateParser.m */,
+				0561A82923FA727300F874E0 /* ActivityMonitorTemplateParser.h */,
+				0561A82A23FA727300F874E0 /* ActivityMonitorTemplateParser.m */,
 			);
 			path = XCInstrumentsParser;
 			sourceTree = "<group>";
@@ -173,6 +178,7 @@
 			files = (
 				05FB075723F5412A00F189BA /* AllocationsTemplateParser.m in Sources */,
 				05FB074E23F540B900F189BA /* main.m in Sources */,
+				0561A82B23FA727300F874E0 /* ActivityMonitorTemplateParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
