@@ -39,7 +39,7 @@ int main(int argc, const char * argv[]) {
         NSArray<NSString *> *arguments = NSProcessInfo.processInfo.arguments;
         NSString *tracePath;
         if (arguments.count < 2) {
-            tracePath= @"/Users/rnikolayev/Downloads/allocations.trace";
+            tracePath= @"/Users/rnikolayev/Downloads/cpu.trace";
         } else{
             tracePath = arguments[1];
         }
@@ -98,7 +98,7 @@ int main(int argc, const char * argv[]) {
                 }
                 printf("RAM allocations end.\n");
             } else if ([instrumentID isEqualToString:activityMonitorId]) {
-                NSArray<NSString *> *results = [ActivityMonitorTemplateParser parseCPUWithInstrument:instrument];
+                NSArray<NSString *> *results = [ActivityMonitorTemplateParser parseCPUWithInstrument:instrument contexts: contexts];
                 printf("\nCPU results:\n");
                 for (NSString *row in results) {
                     printf("%s",[row cStringUsingEncoding:NSUTF8StringEncoding]);

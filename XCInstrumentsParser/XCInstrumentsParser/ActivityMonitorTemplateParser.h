@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @class XRInstrument;
+@class XRContext;
 
 @interface ActivityMonitorTemplateParser : NSObject
 
-+(NSArray<NSString *> *) parseCPUWithInstrument: (XRInstrument *) instrument;
++(NSArray<NSString *> *) parseCPUWithInstrument: (XRInstrument *) instrument contexts: (NSArray<XRContext *> *) contexts;
 
 @end

@@ -12,39 +12,78 @@
 
 @implementation ActivityMonitorTemplateParser
 
-+(NSArray<NSString *> *) parseCPUWithInstrument: (XRInstrument *) instrument {
-    XRObjectAllocInstrument *allocInstrument = (XRObjectAllocInstrument *)instrument;
++(NSArray<NSString *> *) parseCPUWithInstrument: (XRInstrument *) instrument contexts: (NSArray<XRContext *> *) contexts {
+    // Find right context
+    XRContext *cpuContext = nil;
+    for (XRContext *context in contexts) {
+        if ([[context label] isEqualToString:@"System CPU Summary"]) {
+            cpuContext = context;
+            break;
+        }
+    }
+    if (cpuContext == nil) {
+        printf("\nUnable to locate CPU Summary\n");
+        return @[];
+    }
+    // Display the context so we can have access to internal UI state
+    [cpuContext display];
     
-    // ? contexts: ?
-    // Show ?:
-//    XRContext *context = allocInstrument._topLevelContexts[2];
-//    [context display];
+    // Activity Monitor has a very exotic internal UI state so we'll have to use XRAnalysisCorePivotArrayAccessor
+    // and iterate over each row with it
+    XRAnalysisCoreTableViewController *controller = GetVariable(cpuContext.container, _tabularViewController);
+    XRAnalysisCorePivotArray *array = controller._currentResponse.content.rows;
+    XREngineeringTypeFormatter *formatter = CastVariable(array.source, _filter, XRAnalysisCoreTableQuery * const).fullTextSearchSpec.formatter;
     
-//    XROAArrayController *arrayController = GetVariable(allocInstrument, _summaryController);
-//    XROAEventSummary *summary = [[arrayController arrangedObjects] firstObject];
-//
-//    for (XRObjectAllocEvent *event in arrayController.arrangedObjects) {
-//        NSNumber *time = @(event.timestamp / NSEC_PER_SEC);
-////        printf("\n[DETAILS] new delta: %d\n", event.delta);
-////        totalSize += event.delta;
-//        if ([memoryStamps.allKeys containsObject:time]) {
-//            NSInteger summ = memoryStamps[time].integerValue + event.size;
-//            memoryStamps[time] = [NSNumber numberWithInteger: summ];
-//        } else {
-//            memoryStamps[time] = [NSNumber numberWithInteger: event.size];
-//        }
-//    }
-//
-//    NSArray<NSNumber *> *sortedTime = [memoryStamps.allKeys sortedArrayUsingComparator:^(NSNumber *time1, NSNumber *time2) {
-//        return [time1 compare:time2];
-//    }];
-    
-    NSMutableArray<NSString *> *resultArray = @[].mutableCopy;
-//    for (NSNumber *time in sortedTime) {
-//        NSString *size = [byteFormatter stringForObjectValue:memoryStamps[time]];
-//        [resultArray addObject:[NSString stringWithFormat:@"%lds %@", time.integerValue, size]];
-//    }
-    return [resultArray copy];
+    NSMutableArray<NSString *> *results = @[].mutableCopy;
+    [array access:^(XRAnalysisCorePivotArrayAccessor *accessor) {
+        NSMutableSet<NSString *> *existingTimestamps = [NSMutableSet new];
+        // Skip first entry because it always shows maximum load
+        [accessor readRowsStartingAt:1 dimension:0 block:^(XRAnalysisCoreReadCursor *cursor) {
+            while (XRAnalysisCoreReadCursorNext(cursor)) {
+                XRAnalysisCoreValue *object = nil;
+                NSString *result = @"";
+                // Desired data: Time, Total Load %
+                for (SInt64 column = 0; column < 4; column++) {
+                    if (column == 0) {
+                        // Time
+                        XRAnalysisCoreReadCursorGetValue(cursor, column, &object);
+                        // 00:00.000.000
+                        NSString *timeNanoSeconds = [formatter stringForObjectValue:object];
+                        NSString *seconds = [self formatSeconds:timeNanoSeconds];
+                        // Sometimes stats print out more than once in scope of 1 second
+                        // Filtering out those...
+                        if ([existingTimestamps containsObject:seconds]) {
+                            break;
+                        }
+                        [existingTimestamps addObject:seconds];
+                        result = seconds;
+                    }
+                    if (column == 3) {
+                        // CPU
+                        XRAnalysisCoreReadCursorGetValue(cursor, column, &object);
+                        NSString *cpu = [formatter stringForObjectValue:object];
+                        result = [result stringByAppendingFormat:@" %@", cpu];
+                    }
+                    continue;
+                }
+                if (result.length > 0) {
+                    [results addObject:result];
+                }
+            }
+        }];
+    }];
+    return results;
+}
+
++(NSString *) formatSeconds: (NSString *) nanoSecondsString {
+    // 00:00.000.000 -> 00:00
+    NSString *secondsFormat = [[nanoSecondsString componentsSeparatedByString:@"."] firstObject];
+    // 00:00 -> 00
+    NSString *onlySeconds = [[secondsFormat componentsSeparatedByString:@":"] lastObject];
+    if ([onlySeconds length] == 2 && [onlySeconds hasPrefix:@"0"]) {
+        onlySeconds = [onlySeconds substringFromIndex:1];
+    }
+    return [onlySeconds stringByAppendingString:@"s"];
 }
 
 @end
