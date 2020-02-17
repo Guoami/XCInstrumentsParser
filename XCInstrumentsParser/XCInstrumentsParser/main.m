@@ -24,6 +24,11 @@ static void __attribute__((constructor)) hook() {
     method_setImplementation(NSBundle_mainBundle, (IMP)NSBundle_mainBundle_replaced);
 }
 
+static long long timeIntervalFromRun(XRRun *run) {
+    double startDate = [run startTime];
+    return (long long)(ceil(startDate));
+}
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // Required. Each instrument is a plugin and we have to load them before we can process their data.
@@ -39,7 +44,7 @@ int main(int argc, const char * argv[]) {
         NSArray<NSString *> *arguments = NSProcessInfo.processInfo.arguments;
         NSString *tracePath;
         if (arguments.count < 2) {
-            tracePath= @"/Users/rnikolayev/Downloads/cpu.trace";
+            tracePath= @"/Users/rnikolayev/Downloads/allocations.trace";
         } else{
             tracePath = arguments[1];
         }
@@ -91,7 +96,8 @@ int main(int argc, const char * argv[]) {
             }
             if ([instrumentID isEqualToString:allocationsId]) {
                 NSArray<NSString *> *results = [AllocationsTemplateParser parseAllocationsWithInstrument:instrument];
-                printf("\nRAM allocations results:\n");
+                XRRun *run = [[instrument allRuns] lastObject];
+                printf("\nRAM allocations results sinse %lld:\n", timeIntervalFromRun(run));
                 for (NSString *row in results) {
                     printf("%s",[row cStringUsingEncoding:NSUTF8StringEncoding]);
                     printf("\n");
@@ -99,7 +105,8 @@ int main(int argc, const char * argv[]) {
                 printf("RAM allocations end.\n");
             } else if ([instrumentID isEqualToString:activityMonitorId]) {
                 NSArray<NSString *> *results = [ActivityMonitorTemplateParser parseCPUWithInstrument:instrument contexts: contexts];
-                printf("\nCPU results:\n");
+                XRRun *run = [[instrument allRuns] lastObject];
+                printf("\nCPU results since %lld:\n", timeIntervalFromRun(run));
                 for (NSString *row in results) {
                     printf("%s",[row cStringUsingEncoding:NSUTF8StringEncoding]);
                     printf("\n");

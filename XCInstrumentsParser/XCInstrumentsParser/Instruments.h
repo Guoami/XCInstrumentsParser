@@ -70,6 +70,7 @@ typedef struct { XRTime start, length; } XRTimeRange;
 - (SInt64)runNumber;
 - (NSString *)displayName;
 - (XRTimeRange)timeRange;
+- (double) startTime;
 @end
 
 @interface PFTInstrumentType : NSObject
