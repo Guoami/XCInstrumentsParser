@@ -97,7 +97,7 @@ int main(int argc, const char * argv[]) {
             if ([instrumentID isEqualToString:allocationsId]) {
                 NSArray<NSString *> *results = [AllocationsTemplateParser parseAllocationsWithInstrument:instrument];
                 XRRun *run = [[instrument allRuns] lastObject];
-                printf("\nRAM allocations results sinse %lld:\n", timeIntervalFromRun(run));
+                printf("\nRAM allocations results sinсe %lld:\n", timeIntervalFromRun(run));
                 for (NSString *row in results) {
                     printf("%s",[row cStringUsingEncoding:NSUTF8StringEncoding]);
                     printf("\n");
