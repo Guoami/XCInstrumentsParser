@@ -16,7 +16,6 @@
 		05FB076A23F5435700F189BA /* InstrumentsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FB076923F5435700F189BA /* InstrumentsKit.framework */; };
 		05FB076D23F5435A00F189BA /* InstrumentsPlugIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FB076C23F5435A00F189BA /* InstrumentsPlugIn.framework */; };
 		05FB076F23F543BC00F189BA /* InstrumentsAnalysisCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FB076623F5435300F189BA /* InstrumentsAnalysisCore.framework */; };
-		05FB077023F543BC00F189BA /* InstrumentsAnalysisCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05FB076623F5435300F189BA /* InstrumentsAnalysisCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,17 +27,6 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
-		};
-		05FB077123F543BC00F189BA /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				05FB077023F543BC00F189BA /* InstrumentsAnalysisCore.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -128,7 +116,6 @@
 				05FB074623F540B900F189BA /* Sources */,
 				05FB074723F540B900F189BA /* Frameworks */,
 				05FB074823F540B900F189BA /* CopyFiles */,
-				05FB077123F543BC00F189BA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
